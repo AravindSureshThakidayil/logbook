@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState} from "react"
 
 function App() {
   var current_date =new Date();
@@ -20,15 +21,23 @@ function App() {
     elapsed_time = (Date.now() - elapsed_time) / 1000;
     alert(elapsed_time.toString())
   }
-
+  //var list,setlist;
+  var [list, setList] = useState([])
+  const Add= function () {
+    var val=document.getElementById("inp").value;
+    setList([...list, {name: val}])
+    console.log(list);
+  }
   return (
 
     <div className="App">
       <h1>logbook</h1>
       <h2>{current_date.getDate()}{names_months[current_date.getMonth()]}{current_date.getFullYear()}</h2>
 
-      <button onClick = {press_1}>1</button> 
-      <button onClick = {press_2}>2</button>  
+      <input type="text" id="inp"></input> 
+      <button onClick={Add}>Add</button>
+      <ul>{list.map(function (i) {return (<li>{i.name}</li>) })}</ul>
+
     </div>
   );
 }

@@ -83,7 +83,8 @@ function App() {
           height: { min: 480, ideal: 640 },
           facingMode: {
             ideal: 'environment'
-          }
+          },
+          delay: 500
       }}/>
         <h4>{input}</h4>
         <input

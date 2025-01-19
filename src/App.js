@@ -79,7 +79,7 @@ function App() {
             ideal: 'environment'
           },
           onCapture: (barcodes) => {
-            barcodes.forEach((barcode) => console.log(barcode.rawValue))
+            barcodes.forEach((barcode) => alert(barcode.rawValue))
           }        
       }}/>
         <h4>{input}</h4>

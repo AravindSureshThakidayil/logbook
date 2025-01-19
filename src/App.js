@@ -8,7 +8,7 @@ import { BarcodeScanner } from 'react-barcode-scanner'
 import 'react-barcode-scanner/polyfill'
 
 
-function App() {  
+function App() {
   var current_date = new Date();
   const names_months = ["January", "February", "March",
     "April", "May", "June", "July", "August", "Sept", "Oct", "Nov", "Dec"
@@ -20,8 +20,8 @@ function App() {
   async function getAttendees() {
     var q = query(
       collection(db, "logs", "library", "records")
-    ) 
-    var attendees_now = [] 
+    )
+    var attendees_now = []
     var att = await getDocs(q);
     att.forEach(i => {
       attendees_now = [...attendees_now, i.data()]
@@ -31,7 +31,7 @@ function App() {
   }
 
   getAttendees()
-  
+
 
   const signRecord = async function () {
     // 1. create entry object {user: ..., time: , exit: NULL, purpose: ...}
@@ -56,7 +56,7 @@ function App() {
 
   var attendeesHTML = getStuff()
   // console.log(attendeesHTML[0])
-  
+
   return (
     <div className="container">
       <div className="header">
@@ -78,14 +78,23 @@ function App() {
             })
           }
         } options={{
-          formats: ["code_128", "code_39", "code_93", "ean_13"],
+          formats: ["code_128",
+            "code_39",
+            "code_93",
+            "codabar",
+            "ean_13",
+            "ean_8",
+            "itf",
+            "qr_code",
+            "upc_a",
+            "upc_e"],
           width: { min: 640, ideal: 640 },
           height: { min: 480, ideal: 640 },
           facingMode: {
             ideal: 'environment'
           },
           delay: 500
-      }}/>
+        }} />
         <h4>{input}</h4>
         <input
           type="text"
@@ -103,7 +112,7 @@ function App() {
             setPurpose(e.target.value)
           }}></input>
         <button type="button" name="add" onClick={signRecord}>Sign log book</button>
-          
+
         <ul className="users">
           {
             // attendeesHTML

@@ -55,9 +55,11 @@ function App() {
   }
 
   const onCapture = useCallback(function (barcodes) {
-    barcodes.forEach(function (barcode) {
-      alert(barcode.rawValue);
-    })
+    if (barcodes) {
+      barcodes.forEach(function (barcode) {
+        window.alert(barcode.rawValue);
+      })
+    }
   }, [])
 
   var attendeesHTML = getStuff()

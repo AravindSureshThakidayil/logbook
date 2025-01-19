@@ -54,6 +54,14 @@ function App() {
     })
   }
 
+  function barcodeCaptured(barcodes) {
+    useCallback(function (barcodes) {
+      barcodes.forEach(function (barcode) {
+        alert(barcode.rawValue);
+      })
+    }, [])
+  }
+
   var attendeesHTML = getStuff()
   // console.log(attendeesHTML[0])
 
@@ -71,13 +79,7 @@ function App() {
             if (result) setInput(result.text);
           }}
         /> */}
-        <BarcodeScanner onCapture={
-          useCallback(function (barcodes) {
-            barcodes.forEach(function (barcode) {
-              alert(barcode.rawValue);
-            })
-          })
-        } options={{
+        <BarcodeScanner onCapture={barcodeCaptured} options={{
           formats: ["code_128",
             "code_39",
             "code_93",

@@ -72,7 +72,7 @@ function App() {
           }}
         /> */}
         <BarcodeScanner options={{
-          formats: ["code_128", "code_39", "code_93", "codabar"],
+          formats: ["code_128", "code_39", "code_93", "ean_13"],
           width: { min: 640, ideal: 640 },
           height: { min: 480, ideal: 640 },
           facingMode: {

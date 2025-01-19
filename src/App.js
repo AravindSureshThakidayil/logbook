@@ -81,8 +81,8 @@ function App() {
           onCapture: (err, result) => {
             if (result) {
               // Interact with the scanned barcode data here
-              setScannedData(result.text);
-              console.log('Barcode Scanned:', result.text);
+              console.log(result.text);
+              // console.log('Barcode Scanned:', result.text);
             }
             if (err) {
               console.error('Error while scanning barcode:', err);

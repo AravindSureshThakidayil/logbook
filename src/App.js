@@ -54,7 +54,7 @@ function App() {
     })
   }
 
-  function barcodeCaptured(barcodes) {
+  function useBarcodeCaptured(barcodes) {
     useCallback(function (barcodes) {
       barcodes.forEach(function (barcode) {
         alert(barcode.rawValue);
@@ -79,7 +79,7 @@ function App() {
             if (result) setInput(result.text);
           }}
         /> */}
-        <BarcodeScanner onCapture={barcodeCaptured} options={{
+        <BarcodeScanner onCapture={useBarcodeCaptured} options={{
           formats: ["code_128",
             "code_39",
             "code_93",

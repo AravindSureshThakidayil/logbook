@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .App-logo {
@@ -35,4 +36,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.container {
+  padding: 10px;
+}
+
+BarcodeScanner {
+  min-width: 100px;
+  max-width: 100px;
+  min-height: 100px;
 }

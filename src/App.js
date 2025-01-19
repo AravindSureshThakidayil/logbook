@@ -16,6 +16,7 @@ function App() {
   const [input, setInput] = useState("")
   const [purpose, setPurpose] = useState("")
   const [attendees, setAttendees] = useState([])
+  const [errorMessage, setErrorMessage] = useState("")
 
   async function getAttendees() {
     var q = query(
@@ -47,22 +48,24 @@ function App() {
     await addDoc(collection(db, "logs", "library", "records"), writeable)
   }
 
-  function getStuff() {
-    return attendees.map(async function (user) {
-      var details = (await getDoc(user.user)).data()
-      return <li key={user}>{details.name} ({user.time_in})</li>
-    })
-  }
+  // function getStuff() {
+  //   return attendees.map(async function (user) {
+  //     var details = (await getDoc(user.user)).data()
+  //     return <li key={user}>{details.name} ({user.time_in})</li>
+  //   })
+  // }
 
   const onCapture = useCallback(function (barcodes) {
-    if (barcodes) {
-      barcodes.forEach(function (barcode) {
-        window.alert(barcode.rawValue);
-      })
+    console.log("A")
+    if (barcodes.length > 1) {
+      setErrorMessage("One barcode at a time, please.")
+    } else if (barcodes.length === 1) {
+      setInput(barcodes[0].rawValue)
+      setErrorMessage("")
     }
   }, [])
 
-  var attendeesHTML = getStuff()
+  // var attendeesHTML = getStuff()
   // console.log(attendeesHTML[0])
 
   return (
@@ -72,13 +75,7 @@ function App() {
         <h2>{names_months[current_date.getMonth()]}</h2>
       </div>
       <div className="page">
-        {/* <BarcodeScannerComponent
-          width={500}
-          height={500}
-          onUpdate={(err, result) => {
-            if (result) setInput(result.text);
-          }}
-        /> */}
+      <div className="scanner">
         <BarcodeScanner onCapture={onCapture} options={{
           formats: ["code_128",
             "code_39",
@@ -90,36 +87,43 @@ function App() {
             "qr_code",
             "upc_a",
             "upc_e"],
-          width: { min: 640, ideal: 640 },
-          height: { min: 480, ideal: 640 },
           facingMode: {
             ideal: 'environment'
           },
           delay: 500
         }} />
-        <h4>{input}</h4>
-        <input
-          type="text"
-          name="admno"
-          placeholder="Enter admission number..."
-          onChange={function (e) {
-            setInput(e.target.value)
+        </div>
+        <div className="dashboard">
+          {errorMessage !== "" && <h5 style={{color: "red"}}>{errorMessage}</h5>}
+          <div className="inputs">
+            <input
+              type="text"
+              name="admno"
+              value={input}
+              placeholder="Enter admission number..."
+              onChange={function (e) {
+                setInput(e.target.value)
+              }}></input>
+            
+              <input
+                type="text"
+                name="purpose"
+                placeholder="Purpose of visit"
+                onChange={function (e) {
+                  setPurpose(e.target.value)
+                }}></input>
 
-          }}></input>
-        <input
-          type="text"
-          name="purpose"
-          placeholder="Purpose of visit"
-          onChange={function (e) {
-            setPurpose(e.target.value)
-          }}></input>
-        <button type="button" name="add" onClick={signRecord}>Sign log book</button>
+              <button type="button" name="add" onClick={signRecord}>
+                Sign log book
+              </button>
+            </div>
 
-        <ul className="users">
-          {
-            // attendeesHTML
-          }
-        </ul>
+          <ul className="users">
+            {
+              // attendeesHTML
+            }
+          </ul>
+        </div>
       </div>
 
     </div>

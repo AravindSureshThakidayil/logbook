@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState, useCallback } from 'react';
 import { db } from "./firebase_config.js"

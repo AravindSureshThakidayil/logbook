@@ -71,16 +71,15 @@ function App() {
             if (result) setInput(result.text);
           }}
         /> */}
-        <BarcodeScanner options={{
+        <BarcodeScanner onCapture={(barcodes) => {
+            barcodes.forEach((barcode) => alert(barcode.rawValue))
+          }} options={{
           formats: ["code_128", "code_39", "code_93", "ean_13"],
           width: { min: 640, ideal: 640 },
           height: { min: 480, ideal: 640 },
           facingMode: {
             ideal: 'environment'
-          },
-          onCapture: (barcodes) => {
-            barcodes.forEach((barcode) => alert(barcode.rawValue))
-          }        
+          },        
       }}/>
         <h4>{input}</h4>
         <input

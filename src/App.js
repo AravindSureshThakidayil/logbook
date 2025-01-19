@@ -78,15 +78,8 @@ function App() {
           facingMode: {
             ideal: 'environment'
           },
-          onCapture: (err, result) => {
-            if (result) {
-              // Interact with the scanned barcode data here
-              console.log(result.text);
-              // console.log('Barcode Scanned:', result.text);
-            }
-            if (err) {
-              console.error('Error while scanning barcode:', err);
-            }
+          onCapture: (barcodes) => {
+            barcodes.forEach((barcode) => console.log(barcode.rawValue))
           }        
       }}/>
         <h4>{input}</h4>

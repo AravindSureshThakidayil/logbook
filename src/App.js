@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { db } from "./firebase_config.js"
 import firebase from 'firebase/compat/app';
 import { query, where, doc, addDoc, getDoc, getDocs, collection } from 'firebase/firestore';
@@ -72,11 +72,11 @@ function App() {
           }}
         /> */}
         <BarcodeScanner onCapture={
-          function (barcodes) {
+          useCallback(function (barcodes) {
             barcodes.forEach(function (barcode) {
               alert(barcode.rawValue);
             })
-          }
+          })
         } options={{
           formats: ["code_128",
             "code_39",

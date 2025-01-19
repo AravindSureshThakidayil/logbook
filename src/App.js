@@ -78,7 +78,7 @@ function App() {
           facingMode: {
             ideal: 'environment'
           },
-          onCapture: (barcodes) => {alert(barcodes[0])}
+          onCapture: (barcodes) => {console.log("a");}
       }}/>
         <h4>{input}</h4>
         <input
